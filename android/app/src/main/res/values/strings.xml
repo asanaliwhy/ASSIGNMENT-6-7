@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MyFitnessPal</string>
+    <string name="facebook_app_id">1391331468572043</string>
+    <string name="fb_login_protocol_scheme">fb1391331468572043</string>
+    <string name="facebook_client_token">107140227abc3d28089f3fafc39b3b0a</string>
+</resources>
