@@ -9,7 +9,6 @@ import 'screens/main_page.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -39,14 +38,8 @@ class _MyAppState extends State<MyApp> {
       title: 'MyFitnessPal',
       debugShowCheckedModeBanner: false,
       themeMode: _themeMode,
-      theme: ThemeData(
-        primarySwatch: _primarySwatch,
-        brightness: Brightness.light,
-      ),
-      darkTheme: ThemeData(
-        primarySwatch: _primarySwatch,
-        brightness: Brightness.dark,
-      ),
+      theme: ThemeData(primarySwatch: _primarySwatch, brightness: Brightness.light),
+      darkTheme: ThemeData(primarySwatch: _primarySwatch, brightness: Brightness.dark),
       home: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
@@ -66,19 +59,17 @@ class _MyAppState extends State<MyApp> {
 class HomePage extends StatefulWidget {
   final Function(bool) changeThemeMode;
 
-  const HomePage({
-    super.key,
-    required this.changeThemeMode,
-  });
+  const HomePage({super.key, required this.changeThemeMode});
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
   int _selectedIndex = 0;
-
   late final List<Widget> _pages;
+  late AnimationController _animationController;
+  late Animation<double> _fadeAnimation;
 
   @override
   void initState() {
@@ -86,21 +77,45 @@ class _HomePageState extends State<HomePage> {
     _pages = [
       const MainPage(),
       const ItemDetailPage(),
-      ProfilePage(),
+      ProfilePage(), // Removed 'const' since ProfilePage constructor is not const
     ];
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
+    );
+    _animationController.forward();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    if (_selectedIndex != index) {
+      setState(() {
+        _selectedIndex = index;
+      });
+      _animationController.reset();
+      _animationController.forward();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('MyFitnessPal'),
+        title: Text(
+          _selectedIndex == 0
+              ? 'MyFitnessPal'
+              : _selectedIndex == 1
+              ? 'Exercises'
+              : 'Profile',
+        ),
         actions: [
           ThemeButton(changeThemeMode: widget.changeThemeMode),
           IconButton(
@@ -113,7 +128,10 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: _pages[_selectedIndex],
+      body: FadeTransition(
+        opacity: _fadeAnimation,
+        child: _pages[_selectedIndex],
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
@@ -122,18 +140,9 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Theme.of(context).bottomAppBarTheme.color,
         type: BottomNavigationBarType.fixed,
         items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.fitness_center),
-            label: 'Exercises',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.fitness_center), label: 'Exercises'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],
       ),
     );
