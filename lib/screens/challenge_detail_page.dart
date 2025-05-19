@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:final_2/generated/l10n.dart';
 
 class ChallengeDetailPage extends StatefulWidget {
   final String title;
   final Function(double) onProgressUpdate;
   final Function(int) onMinutesUpdate;
 
-  const ChallengeDetailPage({required this.title, required this.onProgressUpdate, required this.onMinutesUpdate, super.key});
+  const ChallengeDetailPage({
+    required this.title,
+    required this.onProgressUpdate,
+    required this.onMinutesUpdate,
+    super.key,
+  });
 
   @override
   _ChallengeDetailPageState createState() => _ChallengeDetailPageState();
@@ -14,7 +20,6 @@ class ChallengeDetailPage extends StatefulWidget {
 
 class _ChallengeDetailPageState extends State<ChallengeDetailPage> with TickerProviderStateMixin {
   late List<List<Map<String, dynamic>>> workouts;
-
   int totalTimeSpent = 0;
   int totalChallengeDuration = 0;
   late List<AnimationController> _controllers;
@@ -23,50 +28,49 @@ class _ChallengeDetailPageState extends State<ChallengeDetailPage> with TickerPr
   @override
   void initState() {
     super.initState();
-    // Initialize workouts based on challenge title
     switch (widget.title) {
-      case 'Cardio Blast':
+      case 'cardioBlastTitle':
         workouts = [
           [
-            {'name': 'Jumping Jacks', 'duration': '3 sets of 30 seconds', 'time': 25, 'isCompleted': false},
-            {'name': 'High Knees', 'duration': '3 sets of 30 seconds', 'time': 20, 'isCompleted': false},
-            {'name': 'Burpees', 'duration': '3 sets of 15 reps', 'time': 35, 'isCompleted': false},
+            {'name': 'jumpingJacksName', 'duration': 'jumpingJacksDuration', 'time': 25, 'isCompleted': false},
+            {'name': 'highKneesName', 'duration': 'highKneesDuration', 'time': 20, 'isCompleted': false},
+            {'name': 'burpeesName', 'duration': 'burpeesDuration', 'time': 35, 'isCompleted': false},
           ],
         ];
         break;
-      case 'Full Body Challenge':
+      case 'fullBodyChallengeTitle':
         workouts = [
           [
-            {'name': 'Push-ups', 'duration': '3 sets of 15 reps', 'time': 30, 'isCompleted': false},
-            {'name': 'Squats', 'duration': '3 sets of 20 reps', 'time': 25, 'isCompleted': false},
-            {'name': 'Plank', 'duration': '3 sets of 30 seconds', 'time': 20, 'isCompleted': false},
+            {'name': 'pushUpsName', 'duration': 'pushUpsDuration', 'time': 30, 'isCompleted': false},
+            {'name': 'squatsName', 'duration': 'squatsDuration', 'time': 25, 'isCompleted': false},
+            {'name': 'plankName', 'duration': 'plankDuration', 'time': 20, 'isCompleted': false},
           ],
         ];
         break;
-      case 'Plank Challenge':
+      case 'plankChallengeTitle':
         workouts = [
           [
-            {'name': 'Standard Plank', 'duration': '3 sets of 30 seconds', 'time': 20, 'isCompleted': false},
-            {'name': 'Side Plank', 'duration': '3 sets of 20 seconds', 'time': 15, 'isCompleted': false},
-            {'name': 'Plank with Leg Lift', 'duration': '3 sets of 20 seconds', 'time': 15, 'isCompleted': false},
+            {'name': 'standardPlankName', 'duration': 'standardPlankDuration', 'time': 20, 'isCompleted': false},
+            {'name': 'sidePlankName', 'duration': 'sidePlankDuration', 'time': 15, 'isCompleted': false},
+            {'name': 'plankWithLegLiftName', 'duration': 'plankWithLegLiftDuration', 'time': 15, 'isCompleted': false},
           ],
         ];
         break;
-      case 'Fit in 15':
+      case 'fitIn15Title':
         workouts = [
           [
-            {'name': 'Mountain Climbers', 'duration': '3 sets of 30 seconds', 'time': 20, 'isCompleted': false},
-            {'name': 'Lunges', 'duration': '3 sets of 15 reps', 'time': 25, 'isCompleted': false},
-            {'name': 'Bicycle Crunches', 'duration': '3 sets of 20 reps', 'time': 20, 'isCompleted': false},
+            {'name': 'mountainClimbersName', 'duration': 'mountainClimbersDuration', 'time': 20, 'isCompleted': false},
+            {'name': 'lungesName', 'duration': 'lungesDuration', 'time': 25, 'isCompleted': false},
+            {'name': 'bicycleCrunchesName', 'duration': 'bicycleCrunchesDuration', 'time': 20, 'isCompleted': false},
           ],
         ];
         break;
       default:
         workouts = [
           [
-            {'name': 'Push-ups', 'duration': '3 sets of 15 reps', 'time': 30, 'isCompleted': false},
-            {'name': 'Squats', 'duration': '3 sets of 20 reps', 'time': 25, 'isCompleted': false},
-            {'name': 'Plank', 'duration': '3 sets of 30 seconds', 'time': 20, 'isCompleted': false},
+            {'name': 'pushUpsName', 'duration': 'pushUpsDuration', 'time': 30, 'isCompleted': false},
+            {'name': 'squatsName', 'duration': 'squatsDuration', 'time': 25, 'isCompleted': false},
+            {'name': 'plankName', 'duration': 'plankDuration', 'time': 20, 'isCompleted': false},
           ],
         ];
     }
@@ -97,12 +101,12 @@ class _ChallengeDetailPageState extends State<ChallengeDetailPage> with TickerPr
 
   Future<void> _loadProgress() async {
     final prefs = await SharedPreferences.getInstance();
-    print('Loading progress for ${widget.title}'); // Debug log
+    print('Loading progress for ${widget.title}');
     for (int weekIndex = 0; weekIndex < workouts.length; weekIndex++) {
       for (int index = 0; index < workouts[weekIndex].length; index++) {
         final key = '${widget.title}_week_${weekIndex}_exercise_$index';
         final isCompleted = prefs.getBool(key) ?? false;
-        print('Loaded $key: $isCompleted'); // Debug log
+        print('Loaded $key: $isCompleted');
         setState(() {
           workouts[weekIndex][index]['isCompleted'] = isCompleted;
         });
@@ -128,12 +132,12 @@ class _ChallengeDetailPageState extends State<ChallengeDetailPage> with TickerPr
         }
         final key = '${widget.title}_week_${weekIndex}_exercise_$exerciseIndex';
         await prefs.setBool(key, workout['isCompleted'] as bool);
-        print('Saved $key: ${workout['isCompleted']}'); // Debug log
+        print('Saved $key: ${workout['isCompleted']}');
       }
     }
 
     final progress = totalExercises == 0 ? 0.0 : (completedExercises / totalExercises) * 100;
-    print('Saving progress for ${widget.title}: $progress%'); // Debug log
+    print('Saving progress for ${widget.title}: $progress%');
     await prefs.setDouble('challenge_${widget.title}', progress);
     widget.onProgressUpdate(progress);
 
@@ -158,16 +162,97 @@ class _ChallengeDetailPageState extends State<ChallengeDetailPage> with TickerPr
 
   double calculateProgress() => totalChallengeDuration == 0 ? 0.0 : totalTimeSpent / totalChallengeDuration.toDouble();
 
+  String _getTranslatedTitle(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+    switch (widget.title) {
+      case 'cardioBlastTitle':
+        return localizations.cardioBlastTitle;
+      case 'fullBodyChallengeTitle':
+        return localizations.fullBodyChallengeTitle;
+      case 'plankChallengeTitle':
+        return localizations.plankChallengeTitle;
+      case 'fitIn15Title':
+        return localizations.fitIn15Title;
+      default:
+        return widget.title; // Fallback for unknown titles
+    }
+  }
+
+  String _getTranslatedWorkoutName(BuildContext context, String key) {
+    final localizations = AppLocalizations.of(context)!;
+    switch (key) {
+      case 'jumpingJacksName':
+        return localizations.jumpingJacksName;
+      case 'highKneesName':
+        return localizations.highKneesName;
+      case 'burpeesName':
+        return localizations.burpeesName;
+      case 'pushUpsName':
+        return localizations.pushUpsName;
+      case 'squatsName':
+        return localizations.squatsName;
+      case 'plankName':
+        return localizations.plankName;
+      case 'standardPlankName':
+        return localizations.standardPlankName;
+      case 'sidePlankName':
+        return localizations.sidePlankName;
+      case 'plankWithLegLiftName':
+        return localizations.plankWithLegLiftName;
+      case 'mountainClimbersName':
+        return localizations.mountainClimbersName;
+      case 'lungesName':
+        return localizations.lungesName;
+      case 'bicycleCrunchesName':
+        return localizations.bicycleCrunchesName;
+      default:
+        return key; // Fallback for unknown keys
+    }
+  }
+
+  String _getTranslatedWorkoutDuration(BuildContext context, String key) {
+    final localizations = AppLocalizations.of(context)!;
+    switch (key) {
+      case 'jumpingJacksDuration':
+        return localizations.jumpingJacksDuration;
+      case 'highKneesDuration':
+        return localizations.highKneesDuration;
+      case 'burpeesDuration':
+        return localizations.burpeesDuration;
+      case 'pushUpsDuration':
+        return localizations.pushUpsDuration;
+      case 'squatsDuration':
+        return localizations.squatsDuration;
+      case 'plankDuration':
+        return localizations.plankDuration;
+      case 'standardPlankDuration':
+        return localizations.standardPlankDuration;
+      case 'sidePlankDuration':
+        return localizations.sidePlankDuration;
+      case 'plankWithLegLiftDuration':
+        return localizations.plankWithLegLiftDuration;
+      case 'mountainClimbersDuration':
+        return localizations.mountainClimbersDuration;
+      case 'lungesDuration':
+        return localizations.lungesDuration;
+      case 'bicycleCrunchesDuration':
+        return localizations.bicycleCrunchesDuration;
+      default:
+        return key; // Fallback for unknown keys
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(title: Text(widget.title), backgroundColor: Colors.deepPurple),
+      appBar: AppBar(title: Text(_getTranslatedTitle(context)), backgroundColor: Colors.deepPurple),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Overall Progress", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            Text(localizations.overallProgress, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             SizedBox(height: 8),
             LinearProgressIndicator(value: calculateProgress(), backgroundColor: Colors.grey[300], color: Colors.deepPurple),
             SizedBox(height: 16),
@@ -176,7 +261,7 @@ class _ChallengeDetailPageState extends State<ChallengeDetailPage> with TickerPr
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Week ${weekIndex + 1}', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                    Text(localizations.weekNumber(weekIndex + 1), style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
                     SizedBox(height: 10),
                     ListView.builder(
                       shrinkWrap: true,
@@ -197,8 +282,13 @@ class _ChallengeDetailPageState extends State<ChallengeDetailPage> with TickerPr
                                 color: isCompleted ? Colors.green : Colors.grey,
                                 size: 30,
                               ),
-                              title: Text(workout['name'], style: TextStyle(fontWeight: FontWeight.bold)),
-                              subtitle: Text('${workout['duration']} - Total Duration: ${workout['time']} min'),
+                              title: Text(
+                                _getTranslatedWorkoutName(context, workout['name']),
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              subtitle: Text(
+                                '${_getTranslatedWorkoutDuration(context, workout['duration'])} - Total Duration: ${workout['time']} min',
+                              ),
                               trailing: AnimatedDoneButton(
                                 isCompleted: isCompleted,
                                 onPressed: () {
@@ -243,6 +333,7 @@ class _AnimatedDoneButtonState extends State<AnimatedDoneButton> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return GestureDetector(
       onTapDown: (_) => setState(() => _isTapped = true),
       onTapUp: (_) {
@@ -260,7 +351,7 @@ class _AnimatedDoneButtonState extends State<AnimatedDoneButton> {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Text(
-          widget.isCompleted ? 'Completed' : 'Done',
+          widget.isCompleted ? localizations.completed : localizations.done,
           style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
         ),
       ),

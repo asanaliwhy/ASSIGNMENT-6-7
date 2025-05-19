@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:final_2/screens/exercise_detail_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
+import 'package:final_2/generated/l10n.dart';
 
 class ItemDetailPage extends StatefulWidget {
   const ItemDetailPage({super.key});
@@ -13,28 +14,28 @@ class ItemDetailPage extends StatefulWidget {
 class _ItemDetailPageState extends State<ItemDetailPage> with TickerProviderStateMixin {
   final List<Map<String, String>> exercises = [
     {
-      'name': 'Push-Ups',
-      'steps': 'Starting position: Begin by kneeling on an exercise mat or the floor...',
+      'nameKey': 'pushUpsName',
+      'stepsKey': 'pushUpsSteps',
       'image': 'assets/push-ups.jpeg',
-      'bodyPart': 'Chest, Shoulders, Triceps',
-      'equipment': 'No equipment',
-      'difficulty': 'Intermediate',
+      'bodyPartKey': 'bodyPartChest', // Changed to match ExerciseDetailPage
+      'equipmentKey': 'equipmentNone',
+      'difficultyKey': 'intermediate',
     },
     {
-      'name': 'Plank',
-      'steps': 'Get into position: Begin by lying face down on the floor or mat...',
+      'nameKey': 'plankName',
+      'stepsKey': 'plankSteps',
       'image': 'assets/plank.jpg',
-      'bodyPart': 'Core',
-      'equipment': 'No equipment',
-      'difficulty': 'Beginner',
+      'bodyPartKey': 'bodyPartCore', // Kept as is, assuming AppLocalizations supports it
+      'equipmentKey': 'equipmentNone',
+      'difficultyKey': 'beginner',
     },
     {
-      'name': 'Squats',
-      'steps': 'Set up your stance: Stand with your feet shoulder-width apart...',
+      'nameKey': 'squatsName',
+      'stepsKey': 'squatsSteps',
       'image': 'assets/leg_workout.jpeg',
-      'bodyPart': 'Legs, Glutes',
-      'equipment': 'No equipment',
-      'difficulty': 'Beginner',
+      'bodyPartKey': 'bodyPartLegs', // Changed to match ExerciseDetailPage
+      'equipmentKey': 'equipmentNone',
+      'difficultyKey': 'beginner',
     },
   ];
 
@@ -42,13 +43,77 @@ class _ItemDetailPageState extends State<ItemDetailPage> with TickerProviderStat
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
 
-  double getDifficultyLevel(String level) {
-    switch (level) {
-      case 'Beginner': return 0.3;
-      case 'Intermediate': return 0.6;
-      case 'Advanced': return 0.9;
-      default: return 0.0;
+  double getDifficultyLevel(String difficultyKey) {
+    switch (difficultyKey) {
+      case 'beginner':
+        return 0.3;
+      case 'intermediate':
+        return 0.6;
+      case 'advanced':
+        return 0.9;
+      default:
+        return 0.0;
     }
+  }
+
+  String _getLocalizedValue(BuildContext context, String key) {
+    final localizations = AppLocalizations.of(context)!;
+    final Map<String, String> keyMap = {
+      // Exercise names
+      'pushUpsName': localizations.pushUpsName,
+      'plankName': localizations.plankName,
+      'squatsName': localizations.squatsName,
+      // Body parts
+      'bodyPartChest': localizations.bodyPartChest,
+      'bodyPartCore': localizations.bodyPartCore,
+      'bodyPartLegs': localizations.bodyPartLegs,
+      // Equipment
+      'equipmentNone': localizations.equipmentNone,
+      // Difficulty
+      'beginner': localizations.beginner,
+      'intermediate': localizations.intermediate,
+      'advanced': localizations.advanced,
+    };
+    return keyMap[key] ?? 'Unknown'; // Fallback to 'Unknown' if not found
+  }
+
+  Widget _buildInfoItem(String title, String value, Color titleColor, IconData icon) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(icon, color: titleColor, size: 24),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.bold,
+                    color: titleColor,
+                  ),
+                ),
+                Text(
+                  value,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontFamily: 'Poppins',
+                    color: Colors.black54,
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -73,7 +138,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> with TickerProviderStat
       for (int i = 0; i < exercises.length; i++) {
         isFavorite[i] = favoriteList.any((item) {
           final decoded = jsonDecode(item);
-          return decoded['name'] == exercises[i]['name'];
+          return decoded['nameKey'] == exercises[i]['nameKey'];
         });
       }
     });
@@ -81,6 +146,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> with TickerProviderStat
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: ListView.builder(
@@ -108,58 +174,72 @@ class _ItemDetailPageState extends State<ItemDetailPage> with TickerProviderStat
                       child: Image.asset(exercise['image']!, height: 180, width: double.infinity, fit: BoxFit.cover),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(12.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Center(child: Text(exercise['name']!, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.deepPurple))),
-                          SizedBox(height: 10),
-                          Row(children: [
-                            Text('Body Part: ', style: TextStyle(color: Theme.of(context).textTheme.bodySmall?.color, fontSize: 14, fontWeight: FontWeight.w600)),
-                            Text(exercise['bodyPart']!, style: TextStyle(color: Theme.of(context).textTheme.bodyMedium?.color, fontSize: 14)),
-                          ]),
-                          SizedBox(height: 8),
-                          Row(children: [
-                            Text('Equipment: ', style: TextStyle(color: Theme.of(context).textTheme.bodySmall?.color, fontSize: 14, fontWeight: FontWeight.w600)),
-                            Text(exercise['equipment']!, style: TextStyle(color: Theme.of(context).textTheme.bodyMedium?.color, fontSize: 14)),
-                          ]),
-                          SizedBox(height: 8),
-                          Row(children: [
-                            Text('Difficulty: ', style: TextStyle(color: Theme.of(context).textTheme.bodySmall?.color, fontSize: 14, fontWeight: FontWeight.w600)),
-                            Text(exercise['difficulty']!, style: TextStyle(color: Theme.of(context).textTheme.bodyMedium?.color, fontSize: 14)),
-                          ]),
-                          SizedBox(height: 12),
-                          Row(children: [
-                            Expanded(
-                              child: LinearProgressIndicator(
-                                value: getDifficultyLevel(exercise['difficulty']!),
-                                backgroundColor: Colors.grey[300],
-                                valueColor: AlwaysStoppedAnimation<Color>(Colors.deepPurple),
-                                minHeight: 6,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
+                          Center(
+                            child: Text(
+                              _getLocalizedValue(context, exercise['nameKey']!),
+                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.deepPurple),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
                             ),
-                            SizedBox(width: 8),
-                            Icon(Icons.fitness_center, color: Colors.deepPurple),
-                          ]),
-                          SizedBox(height: 16),
+                          ),
+                          const SizedBox(height: 12),
+                          _buildInfoItem(
+                            localizations.bodyPartLabel,
+                            _getLocalizedValue(context, exercise['bodyPartKey']!),
+                            Colors.redAccent,
+                            Icons.fitness_center,
+                          ),
+                          _buildInfoItem(
+                            localizations.equipmentLabel,
+                            _getLocalizedValue(context, exercise['equipmentKey']!),
+                            Colors.cyan,
+                            Icons.electrical_services,
+                          ),
+                          _buildInfoItem(
+                            localizations.difficultyLabel,
+                            _getLocalizedValue(context, exercise['difficultyKey']!),
+                            Colors.pinkAccent,
+                            Icons.star,
+                          ),
+                          const SizedBox(height: 12),
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width - 110,
+                                child: LinearProgressIndicator(
+                                  value: getDifficultyLevel(exercise['difficultyKey']!),
+                                  backgroundColor: Colors.grey[300],
+                                  valueColor: AlwaysStoppedAnimation<Color>(Colors.deepPurple),
+                                  minHeight: 6,
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              Icon(Icons.fitness_center, color: Colors.deepPurple),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
                           GestureDetector(
                             onTap: () async {
                               setState(() => isFavorite[index] = !isFavorite[index]);
                               SharedPreferences prefs = await SharedPreferences.getInstance();
                               List<String> favoriteList = prefs.getStringList('favoriteExercises') ?? [];
                               if (isFavorite[index]) {
-                                if (!favoriteList.any((item) => jsonDecode(item)['name'] == exercises[index]['name'])) {
+                                if (!favoriteList.any((item) => jsonDecode(item)['nameKey'] == exercises[index]['nameKey'])) {
                                   favoriteList.add(jsonEncode(exercises[index]));
                                 }
                               } else {
-                                favoriteList.removeWhere((item) => jsonDecode(item)['name'] == exercises[index]['name']);
+                                favoriteList.removeWhere((item) => jsonDecode(item)['nameKey'] == exercises[index]['nameKey']);
                               }
                               await prefs.setStringList('favoriteExercises', favoriteList);
                             },
                             child: Icon(isFavorite[index] ? Icons.favorite : Icons.favorite_border, color: Colors.red, size: 30),
                           ),
-                          SizedBox(height: 12),
+                          const SizedBox(height: 12),
                           SizedBox(
                             width: double.infinity,
                             child: ElevatedButton(
@@ -167,12 +247,12 @@ class _ItemDetailPageState extends State<ItemDetailPage> with TickerProviderStat
                                 context,
                                 PageRouteBuilder(
                                   pageBuilder: (context, animation, secondaryAnimation) => ExerciseDetailPage(
-                                    name: exercise['name']!,
-                                    steps: exercise['steps']!,
+                                    nameKey: exercise['nameKey']!,
+                                    stepsKey: exercise['stepsKey']!,
                                     imageUrl: exercise['image']!,
-                                    bodyPart: exercise['bodyPart']!,
-                                    equipment: exercise['equipment']!,
-                                    difficulty: exercise['difficulty']!,
+                                    bodyPartKey: exercise['bodyPartKey']!,
+                                    equipmentKey: exercise['equipmentKey']!,
+                                    difficultyKey: exercise['difficultyKey']!,
                                   ),
                                   transitionsBuilder: (context, animation, secondaryAnimation, child) {
                                     return FadeTransition(opacity: animation, child: child);
@@ -184,7 +264,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> with TickerProviderStat
                                 padding: EdgeInsets.symmetric(vertical: 12),
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                               ),
-                              child: Text('VIEW DETAILS', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white)),
+                              child: Text(localizations.viewDetails, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white)),
                             ),
                           ),
                         ],

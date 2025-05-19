@@ -1,13 +1,22 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'auth/auth_page.dart';
 import 'theme_button.dart';
 import 'screens/item_detail_page.dart';
 import 'screens/profile_page.dart';
 import 'screens/main_page.dart';
+import 'screens/progress_page.dart';
+import 'screens/community_page.dart';
+import 'screens/settings_page.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'Provider/community_provider.dart';
+import 'Provider/main_provider.dart';
+import 'Provider/language_provider.dart';
+import 'package:final_2/generated/l10n.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,22 +43,45 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'MyFitnessPal',
-      debugShowCheckedModeBanner: false,
-      themeMode: _themeMode,
-      theme: ThemeData(primarySwatch: _primarySwatch, brightness: Brightness.light),
-      darkTheme: ThemeData(primarySwatch: _primarySwatch, brightness: Brightness.dark),
-      home: StreamBuilder<User?>(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          if (snapshot.hasData) {
-            return HomePage(changeThemeMode: _changeThemeMode);
-          }
-          return const AuthPage();
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => CommunityProvider()),
+        ChangeNotifierProvider(create: (_) => MainProvider()),
+        ChangeNotifierProvider(create: (_) => LanguageProvider()),
+      ],
+      child: Consumer<LanguageProvider>(
+        builder: (context, languageProvider, child) {
+          return MaterialApp(
+            title: 'MyFitnessPal',
+            debugShowCheckedModeBanner: false,
+            themeMode: _themeMode,
+            theme: ThemeData(primarySwatch: _primarySwatch, brightness: Brightness.light),
+            darkTheme: ThemeData(primarySwatch: _primarySwatch, brightness: Brightness.dark),
+            locale: languageProvider.locale,
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: const [
+              Locale('en'),
+              Locale('kk'),
+              Locale('ru'),
+            ],
+            home: StreamBuilder<User?>(
+              stream: FirebaseAuth.instance.authStateChanges(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                if (snapshot.hasData) {
+                  return HomePage(changeThemeMode: _changeThemeMode);
+                }
+                return const AuthPage();
+              },
+            ),
+          );
         },
       ),
     );
@@ -76,8 +108,10 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     super.initState();
     _pages = [
       const MainPage(),
+      const ProgressPage(),
       const ItemDetailPage(),
-      ProfilePage(), // Removed 'const' since ProfilePage constructor is not const
+      const CommunityPage(),
+       ProfilePage(),
     ];
     _animationController = AnimationController(
       vsync: this,
@@ -107,17 +141,32 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
         title: Text(
           _selectedIndex == 0
-              ? 'MyFitnessPal'
+              ? localizations.appTitle
               : _selectedIndex == 1
-              ? 'Exercises'
-              : 'Profile',
+              ? localizations.progress
+              : _selectedIndex == 2
+              ? localizations.exercises
+              : _selectedIndex == 3
+              ? localizations.community
+              : localizations.profile,
         ),
         actions: [
           ThemeButton(changeThemeMode: widget.changeThemeMode),
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const SettingsPage()),
+              );
+            },
+            tooltip: localizations.settings,
+          ),
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () async {
@@ -125,6 +174,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
               await GoogleSignIn().signOut();
               await FacebookAuth.instance.logOut();
             },
+            tooltip: localizations.logout,
           ),
         ],
       ),
@@ -139,10 +189,27 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         unselectedItemColor: Colors.grey,
         backgroundColor: Theme.of(context).bottomAppBarTheme.color,
         type: BottomNavigationBarType.fixed,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.fitness_center), label: 'Exercises'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+        items: [
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.home),
+            label: localizations.home,
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.trending_up),
+            label: localizations.progress,
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.fitness_center),
+            label: localizations.exercises,
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.group),
+            label: localizations.community,
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.person),
+            label: localizations.profile,
+          ),
         ],
       ),
     );

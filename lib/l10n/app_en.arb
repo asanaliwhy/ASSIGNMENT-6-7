@@ -1,0 +1,396 @@
+{
+  "appTitle": "MyFitnessPal",
+  "login": "Login",
+  "register": "Register",
+  "email": "Email",
+  "password": "Password",
+  "name": "Name",
+  "surname": "Surname",
+  "createAccount": "Create an account",
+  "signInWithGoogle": "Sign in with Google",
+  "signInWithFacebook": "Sign in with Facebook",
+  "home": "Home",
+  "description": "Description",
+  "progress": "Progress",
+  "exercises": "Exercises",
+  "community": "Community",
+  "profile": "Profile",
+  "logout": "Logout",
+  "search": "Search",
+  "sortBy": "Sort by",
+  "titleAsc": "Title (A-Z)",
+  "titleDesc": "Title (Z-A)",
+  "delete": "Delete",
+  "progressAsc": "Progress (Low to High)",
+  "progressDesc": "Progress (High to Low)",
+  "durationAsc": "Duration (Short to Long)",
+  "durationDesc": "Duration (Long to Short)",
+  "notFound": "Not found",
+  "challenges": "Challenges",
+  "gymsNearMe": "Gyms Near Me",
+  "workoutPlans": "Workout Plans",
+  "started": "Started",
+  "completed": "Completed",
+  "completedStats": "Completed",
+  "workouts": "Workouts",
+  "minutes": "Minutes",
+  "overallProgress": "Overall Progress",
+  "weekNumber": "Week {weekIndex}",
+  "@weekNumber": {
+    "placeholders": {
+      "weekIndex": {}
+    }
+  },
+  "done": "Done",
+  "newPost": "New Post",
+  "editPost": "Edit Post",
+  "deletePost": "Delete Post",
+  "title": "Title",
+  "enterPostTitle": "Enter post title",
+  "postText": "Text",
+  "text": "Text",
+  "shareThoughts": "Share your thoughts...",
+  "fillBothFields": "Please fill in both fields",
+  "postCancel": "Cancel",
+  "cancel": "Cancel",
+  "postSubmit": "Post",
+  "post": "Post",
+  "postSave": "Save",
+  "save": "Save",
+  "postDeleteConfirm": "Are you sure you want to delete this post?",
+  "confirmDeletePost": "Are you sure you want to delete this post?",
+  "postDeleteYes": "Yes",
+  "postDeleteNo": "No",
+  "yes": "Yes",
+  "no": "No",
+  "likes": "{count} Likes",
+  "@likes": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "likesLabel": "Likes",
+  "bodyPart": "Body Part",
+  "equipment": "Equipment",
+  "difficulty": "Difficulty",
+  "bodyPartLabel": "Body Part:",
+  "equipmentLabel": "Equipment:",
+  "difficultyLabel": "Difficulty:",
+  "steps": "Steps",
+  "stepsLabel": "Steps:",
+  "viewDetails": "VIEW DETAILS",
+  "enterGoal": "Enter your goal",
+  "enterYourGoal": "Enter your goal",
+  "addGoal": "Add Goal",
+  "fitnessGoals": "Fitness Goals",
+  "editGoal": "Edit Goal",
+  "goal": "Goal",
+  "deleteGoal": "Delete Goal",
+  "goalProgress": "{percent}% Complete",
+  "@goalProgress": {
+    "placeholders": {
+      "percent": {}
+    }
+  },
+  "percentCompleted": "% Completed",
+  "percentComplete": "% Complete",
+  "deleteGoalConfirm": "Are you sure you want to delete this goal?",
+  "confirmDeleteGoal": "Are you sure you want to delete this goal?",
+  "saveGoal": "Save",
+  "favorites": "Favorites",
+  "noFavorites": "No Favorites",
+  "resetProgress": "Reset Progress",
+  "resetProgressConfirm": "Reset progress for {title}?",
+  "@resetProgressConfirm": {
+    "placeholders": {
+      "title": {}
+    }
+  },
+  "confirmResetProgress": "Reset progress for {title}?",
+  "@confirmResetProgress": {
+    "placeholders": {
+      "title": {}
+    }
+  },
+  "reset": "Reset",
+  "progressChart": "Progress Chart",
+  "yourProgress": "Your Progress",
+  "searchPosts": "Search Posts",
+  "textNotFound": "Text not found",
+  "gymLocation": "Gym Location",
+  "settings": "Settings",
+  "language": "Language",
+  "selectLanguage": "Select Language",
+  "english": "English",
+  "kazakh": "Kazakh",
+  "russian": "Russian",
+  "errorUserNotFound": "No user found for that email.",
+  "errorWrongPassword": "Incorrect password.",
+  "errorEmailInUse": "The email is already registered.",
+  "errorInvalidEmail": "The email address is invalid.",
+  "errorAuthGeneric": "An authentication error occurred.",
+  "errorGeneric": "An unexpected error occurred: {message}",
+  "goalCannotBeEmpty": "Goal cannot be empty",
+  "@errorGeneric": {
+    "placeholders": {
+      "message": {}
+    }
+  },
+  "errorFacebookCancel": "Facebook Sign-In cancelled",
+  "errorFillFields": "Please fill in both fields",
+  "errorEnterName": "Enter your name",
+  "errorEnterSurname": "Enter your surname",
+  "errorEnterEmail": "Enter an email",
+  "errorPasswordLength": "Password must be at least 6 characters",
+  "errorLoadPosts": "Failed to load posts: {error}",
+  "@errorLoadPosts": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "errorAddPost": "Failed to add post: {error}",
+  "@errorAddPost": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "errorEditPost": "Failed to edit post: {error}",
+  "@errorEditPost": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "errorDeletePost": "Failed to delete post: {error}",
+  "@errorDeletePost": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "errorToggleLike": "Failed to toggle like: {error}",
+  "@errorToggleLike": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "weeklyFitnessChallengeTitle": "Weekly Fitness Challenge",
+  "weeklyFitnessChallengeContent": "Join our 7-day cardio challenge and share your progress!",
+  "fitnessGuruAuthor": "FitnessGuru",
+  "plankTipsTitle": "Plank Tips",
+  "plankTipsContent": "Struggling with planks? Try these tips to improve your form.",
+  "coreMasterAuthor": "CoreMaster",
+  "morningStretchRoutineTitle": "Morning Stretch Routine",
+  "morningStretchRoutineContent": "Start your day with this 10-minute stretch to boost flexibility.",
+  "yogaFanAuthor": "YogaFan",
+  "proteinShakeRecipesTitle": "Protein Shake Recipes",
+  "proteinShakeRecipesContent": "Share your favorite post-workout shake recipes here!",
+  "nutritionNutAuthor": "NutritionNut",
+  "errorLoadProgress": "Failed to load progress: {error}",
+  "@errorLoadProgress": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "errorSaveChallengeProgress": "Failed to save challenge progress: {error}",
+  "@errorSaveChallengeProgress": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "errorSaveWorkoutProgress": "Failed to save workout progress: {error}",
+  "@errorSaveWorkoutProgress": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "errorResetProgress": "Failed to reset progress: {error}",
+  "@errorResetProgress": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "errorUpdateTotalMinutes": "Failed to update total minutes: {error}",
+  "@errorUpdateTotalMinutes": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "errorChallengeNotFound": "Challenge {title} not found",
+  "@errorChallengeNotFound": {
+    "placeholders": {
+      "title": {}
+    }
+  },
+  "errorWorkoutNotFound": "Workout {title} not found",
+  "@errorWorkoutNotFound": {
+    "placeholders": {
+      "title": {}
+    }
+  },
+  "fullBodyChallengeTitle": "Full Body Challenge",
+  "fullBodyChallengeSubtitle": "Complete Body Focus",
+  "plankChallengeTitle": "Plank Challenge",
+  "plankChallengeSubtitle": "Build Core Strength",
+  "fitIn15Title": "Fit in 15",
+  "fitIn15Subtitle": "Quick Daily Workouts",
+  "cardioBlastTitle": "Cardio Blast",
+  "cardioBlastSubtitle": "Burn Calories Fast",
+  "goldsGymVeniceTitle": "Gold's Gym Venice",
+  "goldsGymVeniceSubtitle": "The Mecca of Bodybuilding",
+  "goldsGymVeniceAddress": "360 Hampton Dr, Venice",
+  "planetFitnessTitle": "Planet Fitness",
+  "planetFitnessSubtitle": "Affordable and local",
+  "planetFitnessAddress": "456 Fitness Rd, HealthyTown",
+  "chestWorkoutTitle": "Chest Workout",
+  "chestWorkoutDuration": "30 minutes",
+  "legWorkoutTitle": "Leg Workout",
+  "legWorkoutDuration": "45 minutes",
+  "plankWorkoutTitle": "Plank",
+  "plankWorkoutDuration": "15 minutes",
+  "backWorkoutTitle": "Back Workout",
+  "backWorkoutDuration": "40 minutes",
+  "jumpingJacksName": "Jumping Jacks",
+  "totalDurationLabel": "Total Duration:",
+  "minutesLabel": "min",
+  "jumpingJacksDuration": "3 sets of 30 seconds",
+  "highKneesName": "High Knees",
+  "highKneesDuration": "3 sets of 30 seconds",
+  "burpeesName": "Burpees",
+  "burpeesDuration": "3 sets of 15 reps",
+  "pushUpsName": "Push-ups",
+  "pushUpsDuration": "3 sets of 15 reps",
+  "squatsName": "Squats",
+  "squatsDuration": "3 sets of 20 reps",
+  "plankName": "Plank",
+  "plankDuration": "3 sets of 30 seconds",
+  "standardPlankName": "Standard Plank",
+  "standardPlankDuration": "3 sets of 30 seconds",
+  "sidePlankName": "Side Plank",
+  "sidePlankDuration": "3 sets of 20 seconds",
+  "plankWithLegLiftName": "Plank with Leg Lift",
+  "plankWithLegLiftDuration": "3 sets of 20 seconds",
+  "mountainClimbersName": "Mountain Climbers",
+  "mountainClimbersDuration": "3 sets of 30 seconds",
+  "lungesName": "Lunges",
+  "unknownError": "Unknown error",
+  "lungesDuration": "3 sets of 15 reps",
+  "bicycleCrunchesName": "Bicycle Crunches",
+  "bicycleCrunchesDuration": "3 sets of 20 reps",
+  "pushUpsSteps": "Start in a plank position with hands shoulder-width apart.\nLower your body until your chest nearly touches the floor.\nPush back up to the starting position.\nRepeat for the desired number of reps.",
+  "squatsSteps": "Stand with feet shoulder-width apart.\nLower your body by bending your knees and hips.\nKeep your back straight and knees over toes.\nReturn to the starting position.\nRepeat for the desired number of reps.",
+  "bodyPartChest": "Chest",
+  "bodyPartLegs": "Legs",
+  "equipmentNone": "None",
+  "equipmentMat": "Mat",
+  "beginner": "Beginner",
+  "intermediate": "Intermediate",
+  "advanced": "Advanced",
+  "@pushUpsName": {
+    "description": "Name of the Push-ups exercise"
+  },
+  "@squatsName": {
+    "description": "Name of the Squats exercise"
+  },
+  "@pushUpsSteps": {
+    "description": "Steps for performing Push-ups"
+  },
+  "@squatsSteps": {
+    "description": "Steps for performing Squats"
+  },
+  "@bodyPartChest": {
+    "description": "Body part: Chest"
+  },
+  "@bodyPartLegs": {
+    "description": "Body part: Legs"
+  },
+  "@equipmentNone": {
+    "description": "No equipment required"
+  },
+  "@equipmentMat": {
+    "description": "Equipment: Mat"
+  },
+  "@beginner": {
+    "description": "Difficulty level: Beginner"
+  },
+  "@intermediate": {
+    "description": "Difficulty level: Intermediate"
+  },
+  "@advanced": {
+    "description": "Difficulty level: Advanced"
+  },
+  "plankSteps": "Get into position: Begin by lying face down on the floor or mat. Place your forearms on the ground, elbows under shoulders. Lift your body, keeping a straight line from head to heels. Hold for the desired time.",
+  "@plankSteps": {
+    "description": "Steps for performing Plank"
+  },
+  "bodyPartShoulders": "Shoulders",
+  "@bodyPartShoulders": {
+    "description": "Body part: Shoulders"
+  },
+  "bodyPartTriceps": "Triceps",
+  "@bodyPartTriceps": {
+    "description": "Body part: Triceps"
+  },
+  "bodyPartGlutes": "Glutes",
+  "@bodyPartGlutes": {
+    "description": "Body part: Glutes"
+  },
+  "bodyPartChestShouldersTriceps": "Chest, Shoulders, Triceps",
+  "@bodyPartChestShouldersTriceps": {
+    "description": "Combined body parts: Chest, Shoulders, Triceps"
+  },
+  "bodyPartLegsGlutes": "Legs, Glutes",
+  "@bodyPartLegsGlutes": {
+    "description": "Combined body parts: Legs, Glutes"
+  },
+  "bodyPartCore": "Core",
+  "@bodyPartCore": {
+    "description": "Body part: Core"
+  },
+  "exerciseName": "Exercise {name}",
+  "@exerciseName": {
+    "description": "Name of the exercise",
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "bodyPartValue": "Body Part {value}",
+  "@bodyPartValue": {
+    "description": "Value of the body part",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "difficultyValue": "Difficulty {value}",
+  "@difficultyValue": {
+    "description": "Value of the difficulty level",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "equipmentValue": "Equipment {value}",
+  "@equipmentValue": {
+    "description": "Value of the equipment",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "startedCount": "{count} Started",
+  "@startedCount": {
+    "description": "Number of started challenges or workouts",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "completedCount": "{count} Completed",
+  "@completedCount": {
+    "description": "Number of completed challenges or workouts",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "percentLabel": "{value}%",
+  "@percentLabel": {
+    "placeholders": {
+      "value": {}
+    }
+  }
+}

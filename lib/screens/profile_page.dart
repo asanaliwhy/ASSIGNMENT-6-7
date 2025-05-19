@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:final_2/generated/l10n.dart';
 import 'dart:convert';
 import 'exercise_detail_page.dart';
 import 'challenge_detail_page.dart';
@@ -11,7 +13,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  final String userName = "User";
+  String userName = "User";
   final String profileImage = "assets/profile.jpg";
   int workoutsCompleted = 0;
   int totalMinutes = 0;
@@ -19,27 +21,165 @@ class _ProfilePageState extends State<ProfilePage> {
 
   List<Map<String, dynamic>> fitnessGoals = [];
   final TextEditingController _goalController = TextEditingController();
+  final FocusNode _goalFocusNode = FocusNode();
+  String? _goalError;
 
   List<Map<String, String>> favoriteExercises = [];
 
-  _loadFavorites() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> favoriteList = prefs.getStringList('favoriteExercises') ?? [];
-    setState(() {
-      favoriteExercises = favoriteList
-          .map((item) => Map<String, String>.from(jsonDecode(item)))
-          .toList();
-    });
+  @override
+  void initState() {
+    super.initState();
+    _loadUserName();
+    _loadTotalMinutes();
+    _loadGoals();
+    _loadFavorites();
+    _loadWorkoutsCompleted();
+    _loadChallengesCompleted();
   }
 
-  void updateWorkoutsCompleted() async {
+  @override
+  void dispose() {
+    _goalController.dispose();
+    _goalFocusNode.dispose();
+    super.dispose();
+  }
+
+  void _loadUserName() {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null && user.displayName != null && user.displayName!.isNotEmpty) {
+      setState(() {
+        userName = user.displayName!;
+      });
+    }
+  }
+
+  String _getLocalizedValue(BuildContext context, String key) {
+    final localizations = AppLocalizations.of(context);
+    if (localizations == null) {
+      return {
+        'pushUpsName': 'Push-Ups',
+        'squatsName': 'Squats',
+        'plankName': 'Plank',
+        'jumpingJacksName': 'Jumping Jacks',
+        'pushUpsSteps': 'Lie face down, push up...',
+        'squatsSteps': 'Stand, lower hips...',
+        'bodyPartChest': 'Chest',
+        'bodyPartCore': 'Core',
+        'bodyPartLegs': 'Legs',
+        'equipmentNone': 'None',
+        'equipmentMat': 'Mat',
+        'beginner': 'Beginner',
+        'intermediate': 'Intermediate',
+        'advanced': 'Advanced',
+      }[key] ?? 'Unknown';
+    }
+    final Map<String, String> keyMap = {
+      'pushUpsName': localizations.pushUpsName,
+      'squatsName': localizations.squatsName,
+      'plankName': localizations.plankName,
+      'jumpingJacksName': localizations.jumpingJacksName,
+      'pushUpsSteps': localizations.pushUpsSteps,
+      'squatsSteps': localizations.squatsSteps,
+      'bodyPartChest': localizations.bodyPartChest,
+      'bodyPartCore': localizations.bodyPartCore,
+      'bodyPartLegs': localizations.bodyPartLegs,
+      'equipmentNone': localizations.equipmentNone,
+      'equipmentMat': localizations.equipmentMat,
+      'beginner': localizations.beginner,
+      'intermediate': localizations.intermediate,
+      'advanced': localizations.advanced,
+    };
+    return keyMap[key] ?? 'Unknown';
+  }
+
+  Future<void> _loadFavorites() async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      List<String> favoriteList = prefs.getStringList('favoriteExercises') ?? [];
+      List<Map<String, String>> validFavorites = [];
+      List<String> cleanedFavoriteList = [];
+
+      bool hasMigrated = prefs.getBool('hasMigratedFavorites') ?? false;
+      if (!hasMigrated) {
+        for (var item in favoriteList) {
+          try {
+            var decoded = jsonDecode(item);
+            var newFormat = {
+              'nameKey': (decoded['name'] ?? decoded['nameKey'] ?? 'unknown').toString(),
+              'stepsKey': (decoded['steps'] ?? decoded['stepsKey'] ?? 'unknown').toString(),
+              'imageUrl': (decoded['image'] ?? decoded['imageUrl'] ?? '').toString(),
+              'bodyPartKey': (decoded['bodyPart'] ?? decoded['bodyPartKey'] ?? 'unknown').toString(),
+              'equipmentKey': (decoded['equipment'] ?? decoded['equipmentKey'] ?? 'unknown').toString(),
+              'difficultyKey': (decoded['difficulty'] ?? decoded['difficultyKey'] ?? 'unknown').toString(),
+            };
+            if (newFormat['nameKey'] == 'unknown' || newFormat['stepsKey'] == 'unknown') {
+              continue;
+            }
+            cleanedFavoriteList.add(jsonEncode(newFormat));
+            validFavorites.add(newFormat);
+          } catch (e) {}
+        }
+        await prefs.setStringList('favoriteExercises', cleanedFavoriteList);
+        await prefs.setBool('hasMigratedFavorites', true);
+      } else {
+        for (var item in favoriteList) {
+          try {
+            var decoded = jsonDecode(item);
+            if (decoded is Map &&
+                decoded['nameKey'] != null &&
+                decoded['nameKey'] != 'unknown' &&
+                decoded['stepsKey'] != null &&
+                decoded['stepsKey'] != 'unknown' &&
+                decoded['imageUrl'] != null &&
+                decoded['bodyPartKey'] != null &&
+                decoded['equipmentKey'] != null &&
+                decoded['difficultyKey'] != null) {
+              var validEntry = {
+                'nameKey': decoded['nameKey'].toString(),
+                'stepsKey': decoded['stepsKey'].toString(),
+                'imageUrl': decoded['imageUrl'].toString(),
+                'bodyPartKey': decoded['bodyPartKey'].toString(),
+                'equipmentKey': decoded['equipmentKey'].toString(),
+                'difficultyKey': decoded['difficultyKey'].toString(),
+              };
+              validFavorites.add(validEntry);
+              cleanedFavoriteList.add(item);
+            }
+          } catch (e) {}
+        }
+        await prefs.setStringList('favoriteExercises', cleanedFavoriteList);
+      }
+
+      setState(() {
+        favoriteExercises = validFavorites;
+      });
+    } catch (e) {}
+  }
+
+  Future<void> _resetFavorites() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('favoriteExercises');
+    await prefs.setBool('hasMigratedFavorites', false);
+    setState(() {
+      favoriteExercises = [];
+    });
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Favorites reset successfully'),
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
+
+  Future<void> _loadWorkoutsCompleted() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int savedWorkouts = prefs.getInt('workoutsCompleted') ?? 0;
     setState(() {
       workoutsCompleted = savedWorkouts;
     });
   }
-  void updateChallengesCompleted() async {
+
+  Future<void> _loadChallengesCompleted() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int savedChallenges = prefs.getInt('challengesCompleted') ?? 0;
     setState(() {
@@ -47,116 +187,121 @@ class _ProfilePageState extends State<ProfilePage> {
     });
   }
 
-
-  void _loadWorkoutsCompleted() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    int savedWorkouts = prefs.getInt('workoutsCompleted') ?? 0;
-    setState(() {
-      workoutsCompleted = savedWorkouts;
-    });
-  }
-
-  void _loadChallengesCompleted() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    int savedChallenges = prefs.getInt('challengesCompleted') ?? 0;
-    setState(() {
-      challengesCompleted = savedChallenges;
-    });
-  }
-
-
-
-
-  // Load total minutes from SharedPreferences
-  _loadTotalMinutes() async {
+  Future<void> _loadTotalMinutes() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int savedMinutes = prefs.getInt('totalMinutes') ?? 0;
-    print("Loaded total minutes from storage: $savedMinutes");  // Debugging
     setState(() {
       totalMinutes = savedMinutes;
     });
   }
 
-
-  // This method will update the total minutes
-  void updateTotalMinutes(int minutes) async {
-    setState(() {
-      totalMinutes += minutes;
-    });
-
-    print("Total minutes updated to: $totalMinutes"); // Debugging
-    await _saveTotalMinutes();
-  }
-
-
-  // Save total minutes to SharedPreferences
-  _saveTotalMinutes() async {
+  Future<void> _saveTotalMinutes() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    print("Saving total minutes: $totalMinutes"); // Debugging
     await prefs.setInt('totalMinutes', totalMinutes);
   }
 
-
-  // Load goals from SharedPreferences
-  _loadGoals() async {
+  Future<void> _loadGoals() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? goalsString = prefs.getString('fitnessGoals');
     if (goalsString != null) {
-      List<dynamic> goalsJson = jsonDecode(goalsString);
-      setState(() {
-        fitnessGoals = goalsJson
-            .map((goal) => {
-          'goal': goal['goal'],
-          'progress': goal['progress'],
-        })
-            .toList();
-      });
-    }
-  }
-
-  // Save goals to SharedPreferences
-  _saveGoals() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String goalsString = jsonEncode(fitnessGoals);
-    prefs.setString('fitnessGoals', goalsString);
-  }
-
-  // Add a new goal with default 0% progress
-  _addGoal() {
-    if (_goalController.text.isNotEmpty) {
-      setState(() {
-        fitnessGoals.add({
-          'goal': _goalController.text,
-          'progress': 0.0,
+      try {
+        List<dynamic> goalsJson = jsonDecode(goalsString);
+        setState(() {
+          fitnessGoals = goalsJson.map((goal) {
+            // Ensure each goal is cast to Map<String, dynamic>
+            final goalMap = goal as Map<String, dynamic>;
+            return <String, dynamic>{
+              'goal': goalMap['goal']?.toString() ?? '',
+              'progress': double.tryParse(goalMap['progress']?.toString() ?? '0.0') ?? 0.0,
+            };
+          }).toList();
+          print('Goals loaded: $fitnessGoals');
         });
+      } catch (e) {
+        print('Error loading goals: $e');
+      }
+    }
+  }
+
+  Future<void> _saveGoals() async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String goalsString = jsonEncode(fitnessGoals);
+      await prefs.setString('fitnessGoals', goalsString);
+      print('Goals saved: $goalsString');
+    } catch (e) {
+      print('Error saving goals: $e');
+    }
+  }
+
+  void _addGoal() {
+    print('Add Goal button pressed with text: ${_goalController.text}');
+    if (_goalController.text.trim().isNotEmpty) {
+      final newGoal = <String, dynamic>{
+        'goal': _goalController.text.trim(),
+        'progress': 0.0,
+      };
+      setState(() {
+        fitnessGoals.add(newGoal);
+        print('Goal added: $newGoal');
+        _goalError = null;
         _goalController.clear();
-        _saveGoals();  // Save goals after adding
+      });
+      _saveGoals();
+      _goalFocusNode.unfocus();
+      print('Showing SnackBar');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            AppLocalizations.of(context)?.addGoal ?? 'Goal added successfully',
+          ),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    } else {
+      setState(() {
+        _goalError = AppLocalizations.of(context)?.goalCannotBeEmpty ?? 'Goal cannot be empty';
+        print('Error set: $_goalError');
       });
     }
   }
 
-  // Edit an existing goal
-  _editGoal(int index) {
+  void _editGoal(int index) {
+    final localizations = AppLocalizations.of(context);
+    String editGoalText = localizations?.editGoal ?? 'Edit Goal';
+    String goalLabel = localizations?.goal ?? 'Goal';
+    String saveText = localizations?.save ?? 'Save';
     _goalController.text = fitnessGoals[index]['goal'];
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Edit Goal"),
+          title: Text(editGoalText),
           content: TextField(
             controller: _goalController,
-            decoration: InputDecoration(labelText: "Goal"),
+            focusNode: _goalFocusNode,
+            decoration: InputDecoration(
+              labelText: goalLabel,
+              errorText: _goalError,
+            ),
           ),
           actions: [
             TextButton(
               onPressed: () {
+                if (_goalController.text.trim().isEmpty) {
+                  setState(() {
+                    _goalError = localizations?.goalCannotBeEmpty ?? 'Goal cannot be empty';
+                  });
+                  return;
+                }
                 setState(() {
-                  fitnessGoals[index]['goal'] = _goalController.text;
-                  _saveGoals();  // Save goals after editing
+                  fitnessGoals[index]['goal'] = _goalController.text.trim();
+                  _goalError = null;
                 });
+                _saveGoals();
                 Navigator.pop(context);
               },
-              child: Text("Save"),
+              child: Text(saveText),
             ),
           ],
         );
@@ -164,30 +309,34 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  // Delete an existing goal
-  _deleteGoal(int index) {
+  void _deleteGoal(int index) {
+    final localizations = AppLocalizations.of(context);
+    String deleteGoalText = localizations?.deleteGoal ?? 'Delete Goal';
+    String confirmText = localizations?.confirmDeleteGoal ?? 'Are you sure you want to delete this goal?';
+    String yesText = localizations?.yes ?? 'Yes';
+    String noText = localizations?.no ?? 'No';
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Delete Goal"),
-          content: Text("Are you sure you want to delete this goal?"),
+          title: Text(deleteGoalText),
+          content: Text(confirmText),
           actions: [
             TextButton(
               onPressed: () {
                 setState(() {
                   fitnessGoals.removeAt(index);
-                  _saveGoals();  // Save goals after deletion
                 });
+                _saveGoals();
                 Navigator.pop(context);
               },
-              child: Text("Yes"),
+              child: Text(yesText),
             ),
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Text("No"),
+              child: Text(noText),
             ),
           ],
         );
@@ -195,15 +344,14 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  // Adjust progress (increase or decrease)
-  _adjustProgress(int index, double delta) {
+
+  void _adjustProgress(int index, double delta) {
     setState(() {
       fitnessGoals[index]['progress'] = (fitnessGoals[index]['progress'] + delta).clamp(0.0, 1.0);
-      _saveGoals();  // Save goals after adjusting progress
     });
+    _saveGoals();
   }
 
-  // Display stats containers
   Widget _buildStatContainer(String label, String value, Color bgColor, Color textColor) {
     return Container(
       width: 160,
@@ -237,24 +385,24 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    _loadTotalMinutes();  // Load total minutes when the page is initialized
-    _loadGoals();
-    _loadFavorites();
-    _loadWorkoutsCompleted();
-    _loadChallengesCompleted();// Load favorites
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+    String workoutsText = localizations?.workouts ?? 'Workouts';
+    String minutesText = localizations?.minutes ?? 'Minutes';
+    String challengesText = localizations?.challenges ?? 'Challenges';
+    String enterGoalText = localizations?.enterYourGoal ?? 'Enter your goal';
+    String addGoalText = localizations?.addGoal ?? 'Add Goal';
+    String fitnessGoalsText = localizations?.fitnessGoals ?? 'Fitness Goals';
+    String favoritesText = localizations?.favorites ?? 'Favorites';
+    String noFavoritesText = localizations?.noFavorites ?? 'No favorites added';
+    String percentCompleteText = localizations?.percentComplete ?? 'complete';
+
     return Scaffold(
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Profile Section
             Center(
               child: Column(
                 children: [
@@ -274,40 +422,56 @@ class _ProfilePageState extends State<ProfilePage> {
                 ],
               ),
             ),
-
             const SizedBox(height: 30),
-
-            // Stats Section
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  child: _buildStatContainer("Workouts", workoutsCompleted.toString(), Colors.green[200]!, Colors.green[800]!),
+                  child: _buildStatContainer(
+                      workoutsText, workoutsCompleted.toString(), Colors.green[200]!, Colors.green[800]!),
                 ),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: _buildStatContainer("Minutes", totalMinutes.toString(), Colors.blue[200]!, Colors.blue[800]!),
+                  child: _buildStatContainer(
+                      minutesText, totalMinutes.toString(), Colors.blue[200]!, Colors.blue[800]!),
                 ),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: _buildStatContainer("Challenges", challengesCompleted.toString(), Colors.red[200]!, Colors.red[800]!),
+                  child: _buildStatContainer(
+                      challengesText, challengesCompleted.toString(), Colors.red[200]!, Colors.red[800]!),
                 ),
               ],
             ),
-
             const SizedBox(height: 30),
-
-            // Add Goal Section
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 TextField(
                   controller: _goalController,
-                  decoration: InputDecoration(labelText: "Enter your goal"),
+                  focusNode: _goalFocusNode,
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)?.enterYourGoal ?? 'Enter your goal',
+                    errorText: _goalError,
+                    border: OutlineInputBorder(),
+                  ),
+                  onChanged: (value) {
+                    setState(() {
+                      if (value.trim().isNotEmpty && _goalError != null) {
+                        _goalError = null;
+                      }
+                    });
+                  },
+                  onSubmitted: (_) {
+                    print('Submitted via keyboard');
+                    _addGoal();
+                  },
                 ),
                 const SizedBox(height: 12),
                 ElevatedButton(
-                  onPressed: _addGoal,
+                  onPressed: () {
+                    print('Add Goal button tapped');
+                    _addGoal();
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.deepPurple,
                     padding: EdgeInsets.symmetric(vertical: 14),
@@ -316,21 +480,38 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                   child: Text(
-                    "Add Goal",
+                    AppLocalizations.of(context)?.addGoal ?? 'Add Goal',
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white, // ✅ color goes here
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                ElevatedButton(
+                  onPressed: _resetFavorites,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red,
+                    padding: EdgeInsets.symmetric(vertical: 14),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  child: Text(
+                    'Reset Favorites',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
                     ),
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 30),
-
-            // Fitness Goals Section
             Text(
-              "Fitness Goals",
+              fitnessGoalsText,
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
@@ -338,8 +519,6 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             const SizedBox(height: 16),
-
-            // Display the goals
             Column(
               children: List.generate(fitnessGoals.length, (index) {
                 return Card(
@@ -356,11 +535,13 @@ class _ProfilePageState extends State<ProfilePage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              fitnessGoals[index]['goal'],
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
+                            Expanded(
+                              child: Text(
+                                fitnessGoals[index]['goal'] as String, // Ensure String type
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
                               ),
                             ),
                             IconButton(
@@ -376,13 +557,13 @@ class _ProfilePageState extends State<ProfilePage> {
                           ],
                         ),
                         LinearProgressIndicator(
-                          value: fitnessGoals[index]['progress'],
+                          value: fitnessGoals[index]['progress'] as double, // Ensure double type
                           backgroundColor: Colors.grey[300],
                           color: Colors.deepPurple,
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          "${(fitnessGoals[index]['progress'] * 100).toInt()}% Complete",
+                          "${((fitnessGoals[index]['progress'] as double) * 100).toInt()}% $percentCompleteText",
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                           ),
@@ -409,59 +590,62 @@ class _ProfilePageState extends State<ProfilePage> {
               }),
             ),
             const SizedBox(height: 30),
-
             Text(
-              "Favorites",
+              favoritesText,
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
                 color: Colors.deepPurple,
               ),
             ),
-
             const SizedBox(height: 16),
-
-            Column(
+            favoriteExercises.isEmpty
+                ? Center(
+              child: Text(
+                noFavoritesText,
+                style: TextStyle(fontSize: 16, color: Colors.grey),
+              ),
+            )
+                : Column(
               children: favoriteExercises.map((exercise) {
                 return Card(
                   elevation: 0,
                   margin: EdgeInsets.symmetric(vertical: 8),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                   child: InkWell(
-                    onTap: () {
-                      Navigator.push(
+                    onTap: () async {
+                      await Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (_) => ExerciseDetailPage(
-                            name: exercise['name']!,
-                            steps: exercise['steps']!,
-                            imageUrl: exercise['image']!,
-                            bodyPart: exercise['bodyPart']!,
-                            equipment: exercise['equipment']!,
-                            difficulty: exercise['difficulty']!,
+                            nameKey: exercise['nameKey']!,
+                            stepsKey: exercise['stepsKey']!,
+                            imageUrl: exercise['imageUrl']!,
+                            bodyPartKey: exercise['bodyPartKey']!,
+                            equipmentKey: exercise['equipmentKey']!,
+                            difficultyKey: exercise['difficultyKey']!,
                           ),
                         ),
                       );
+                      await _loadFavorites();
                     },
-                    child: Card(
-                      elevation: 0,
-                      margin: EdgeInsets.symmetric(vertical: 8),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                      child: ListTile(
-                        leading: Image.asset(
-                          exercise['image']!,
-                          width: 50,
-                          height: 50,
-                          fit: BoxFit.cover,
+                    child: ListTile(
+                      leading: Image.asset(
+                        exercise['imageUrl']!,
+                        width: 50,
+                        height: 50,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) => Icon(Icons.error),
+                      ),
+                      title: Text(
+                        _getLocalizedValue(context, exercise['nameKey']!),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.deepPurple,
                         ),
-                        title: Text(
-                          exercise['name']!,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.deepPurple,
-                          ),
-                        ),
-                        subtitle: Text(exercise['bodyPart'] ?? ''),
+                      ),
+                      subtitle: Text(
+                        _getLocalizedValue(context, exercise['bodyPartKey']!),
                       ),
                     ),
                   ),

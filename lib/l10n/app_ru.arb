@@ -1,0 +1,396 @@
+{
+  "appTitle": "MyFitnessPal",
+  "login": "Войти",
+  "register": "Зарегистрироваться",
+  "email": "Электронная почта",
+  "password": "Пароль",
+  "name": "Имя",
+  "surname": "Фамилия",
+  "createAccount": "Создать аккаунт",
+  "signInWithGoogle": "Войти через Google",
+  "signInWithFacebook": "Войти через Facebook",
+  "home": "Главная",
+  "progress": "Прогресс",
+  "exercises": "Упражнения",
+  "community": "Сообщество",
+  "profile": "Профиль",
+  "logout": "Выйти",
+  "search": "Поиск",
+  "sortBy": "Сортировать по",
+  "titleAsc": "Название (А-Я)",
+  "titleDesc": "Название (Я-А)",
+  "progressAsc": "Прогресс (от низкого к высокому)",
+  "progressDesc": "Прогресс (от высокого к низкому)",
+  "durationAsc": "Длительность (от короткой к длинной)",
+  "durationDesc": "Длительность (от длинной к короткой)",
+  "notFound": "Не найдено",
+  "challenges": "Испытания",
+  "gymsNearMe": "Спортзалы рядом",
+  "workoutPlans": "Планы тренировок",
+  "started": "Начато",
+  "completed": "Завершено",
+  "completedStats": "Завершено",
+  "workouts": "Занятия",
+  "noFavorites": "Отсутвуют любимые упражнения",
+  "goalCannotBeEmpty": "Цель не может быть пустой",
+  "minutes": "Минуты",
+  "overallProgress": "Общий прогресс",
+  "weekNumber": "Неделя {weekIndex}",
+  "@weekNumber": {
+    "placeholders": {
+      "weekIndex": {}
+    }
+  },
+  "done": "Готово",
+  "newPost": "Новый пост",
+  "editPost": "Редактировать пост",
+  "deletePost": "Удалить пост",
+  "title": "Заголовок",
+  "enterPostTitle": "Введите заголовок поста",
+  "postText": "Текст",
+  "text": "Текст",
+  "shareThoughts": "Поделитесь своими мыслями...",
+  "fillBothFields": "Пожалуйста, заполните оба поля",
+  "postCancel": "Отмена",
+  "cancel": "Отмена",
+  "postSubmit": "Опубликовать",
+  "post": "Пост",
+  "postSave": "Сохранить",
+  "save": "Сохранить",
+  "postDeleteConfirm": "Вы уверены, что хотите удалить этот пост?",
+  "confirmDeletePost": "Вы уверены, что хотите удалить этот пост?",
+  "postDeleteYes": "Да",
+  "postDeleteNo": "Нет",
+  "yes": "Да",
+  "no": "Нет",
+  "likes": "{count} Лайков",
+  "@likes": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "likesLabel": "Лайки",
+  "bodyPart": "Часть тела",
+  "equipment": "Оборудование",
+  "difficulty": "Сложность",
+  "bodyPartLabel": "Часть тела:",
+  "equipmentLabel": "Оборудование:",
+  "difficultyLabel": "Сложность:",
+  "steps": "Шаги",
+  "stepsLabel": "Шаги:",
+  "viewDetails": "Посмотреть детали",
+  "enterGoal": "Введите вашу цель",
+  "enterYourGoal": "Введите вашу цель",
+  "addGoal": "Добавить цель",
+  "fitnessGoals": "Фитнес-цели",
+  "editGoal": "Редактировать цель",
+  "goal": "Цель",
+  "deleteGoal": "Удалить цель",
+  "goalProgress": "{percent}% Завершено",
+  "@goalProgress": {
+    "placeholders": {
+      "percent": {}
+    }
+  },
+  "percentCompleted": "% Завершено",
+  "percentComplete": "% Завершено",
+  "deleteGoalConfirm": "Вы уверены, что хотите удалить эту цель?",
+  "confirmDeleteGoal": "Вы уверены, что хотите удалить эту цель?",
+  "saveGoal": "Сохранить",
+  "favorites": "Избранное",
+  "resetProgress": "Сбросить прогресс",
+  "resetProgressConfirm": "Сбросить прогресс для {title}?",
+  "@resetProgressConfirm": {
+    "placeholders": {
+      "title": {}
+    }
+  },
+  "confirmResetProgress": "Сбросить прогресс для {title}?",
+  "@confirmResetProgress": {
+    "placeholders": {
+      "title": {}
+    }
+  },
+  "reset": "Сбросить",
+  "progressChart": "График прогресса",
+  "yourProgress": "Ваш прогресс",
+  "searchPosts": "Поиск постов",
+  "textNotFound": "Текст не найден",
+  "gymLocation": "Местоположение спортзала",
+  "settings": "Настройки",
+  "language": "Язык",
+  "selectLanguage": "Выбрать язык",
+  "english": "Английский",
+  "kazakh": "Казахский",
+  "russian": "Русский",
+  "errorUserNotFound": "Пользователь с таким email не найден.",
+  "errorWrongPassword": "Неверный пароль.",
+  "errorEmailInUse": "Этот email уже зарегистрирован.",
+  "errorInvalidEmail": "Недействительный адрес электронной почты.",
+  "errorAuthGeneric": "Произошла ошибка аутентификации.",
+  "errorGeneric": "Произошла непредвиденная ошибка: {message}",
+  "@errorGeneric": {
+    "placeholders": {
+      "message": {}
+    }
+  },
+  "errorFacebookCancel": "Вход через Facebook отменен",
+  "errorFillFields": "Пожалуйста, заполните оба поля",
+  "errorEnterName": "Введите ваше имя",
+  "errorEnterSurname": "Введите вашу фамилию",
+  "errorEnterEmail": "Введите электронную почту",
+  "errorPasswordLength": "Пароль должен содержать не менее 6 символов",
+  "errorLoadPosts": "Не удалось загрузить посты: {error}",
+  "@errorLoadPosts": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "errorAddPost": "Не удалось добавить пост: {error}",
+  "@errorAddPost": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "errorEditPost": "Не удалось отредактировать пост: {error}",
+  "@errorEditPost": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "errorDeletePost": "Не удалось удалить пост: {error}",
+  "@errorDeletePost": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "errorToggleLike": "Не удалось переключить лайк: {error}",
+  "@errorToggleLike": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "weeklyFitnessChallengeTitle": "Еженедельное фитнес-испытание",
+  "weeklyFitnessChallengeContent": "Присоединяйтесь к нашему 7-дневному кардио-испытанию и делитесь своим прогрессом!",
+  "fitnessGuruAuthor": "ФитнесГуру",
+  "plankTipsTitle": "Советы по планке",
+  "plankTipsContent": "Трудности с планкой? Попробуйте эти советы, чтобы улучшить технику.",
+  "coreMasterAuthor": "МастерКор",
+  "morningStretchRoutineTitle": "Утренняя растяжка",
+  "morningStretchRoutineContent": "Начните день с 10-минутной растяжки для повышения гибкости.",
+  "yogaFanAuthor": "ФанатЙоги",
+  "proteinShakeRecipesTitle": "Рецепты протеиновых коктейлей",
+  "proteinShakeRecipesContent": "Делитесь своими любимыми рецептами коктейлей после тренировок здесь!",
+  "nutritionNutAuthor": "СпециалистПоПитанию",
+  "errorLoadProgress": "Не удалось загрузить прогресс: {error}",
+  "@errorLoadProgress": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "errorSaveChallengeProgress": "Не удалось сохранить прогресс испытания: {error}",
+  "@errorSaveChallengeProgress": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "errorSaveWorkoutProgress": "Не удалось сохранить прогресс тренировки: {error}",
+  "@errorSaveWorkoutProgress": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "errorResetProgress": "Не удалось сбросить прогресс: {error}",
+  "@errorResetProgress": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "errorUpdateTotalMinutes": "Не удалось обновить общее время: {error}",
+  "@errorUpdateTotalMinutes": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "errorChallengeNotFound": "Испытание {title} не найдено",
+  "@errorChallengeNotFound": {
+    "placeholders": {
+      "title": {}
+    }
+  },
+  "errorWorkoutNotFound": "Тренировка {title} не найдена",
+  "@errorWorkoutNotFound": {
+    "placeholders": {
+      "title": {}
+    }
+  },
+  "fullBodyChallengeTitle": "Полное Испытание Тела",
+  "fullBodyChallengeSubtitle": "Фокус на Всё Тело",
+  "plankChallengeTitle": "Испытание Планкой",
+  "plankChallengeSubtitle": "Укрепление Корпуса",
+  "fitIn15Title": "Фитнес за 15",
+  "fitIn15Subtitle": "Быстрые Ежедневные Тренировки",
+  "cardioBlastTitle": "Кардио Взрыв",
+  "cardioBlastSubtitle": "Быстрое Сжигание Калорий",
+  "goldsGymVeniceTitle": "Gold's Gym в Венеции",
+  "goldsGymVeniceSubtitle": "Мекка Бодибилдинга",
+  "goldsGymVeniceAddress": "Хэмптон Др, 360, Венеция",
+  "planetFitnessTitle": "Planet Fitness",
+  "planetFitnessSubtitle": "Доступно и местно",
+  "planetFitnessAddress": "Фитнес Роуд, 456",
+  "chestWorkoutTitle": "Тренировка Груди",
+  "chestWorkoutDuration": "30 минут",
+  "legWorkoutTitle": "Тренировка Ног",
+  "legWorkoutDuration": "45 минут",
+  "plankWorkoutTitle": "Планка",
+  "plankWorkoutDuration": "15 минут",
+  "backWorkoutTitle": "Тренировка Спины",
+  "backWorkoutDuration": "40 минут",
+  "jumpingJacksName": "Прыжки с разведением рук",
+  "jumpingJacksDuration": "3 подхода по 30 секунд",
+  "highKneesName": "Высокие колени",
+  "highKneesDuration": "3 подхода по 30 секунд",
+  "unknownError": "Неизвестная ошибка",
+  "burpeesName": "Бёрпи",
+  "burpeesDuration": "3 подхода по 15 повторений",
+  "pushUpsName": "Отжимания",
+  "pushUpsDuration": "3 подхода по 15 повторений",
+  "squatsName": "Приседания",
+  "squatsDuration": "3 подхода по 20 повторений",
+  "plankName": "Планка",
+  "plankDuration": "3 подхода по 30 секунд",
+  "standardPlankName": "Стандартная Планка",
+  "standardPlankDuration": "3 подхода по 30 секунд",
+  "sidePlankName": "Боковая Планка",
+  "sidePlankDuration": "3 подхода по 20 секунд",
+  "plankWithLegLiftName": "Планка с Подъемом Ноги",
+  "plankWithLegLiftDuration": "3 подхода по 20 секунд",
+  "mountainClimbersName": "Скалолазы",
+  "mountainClimbersDuration": "3 подхода по 30 секунд",
+  "totalDurationLabel": "Общая продолжительность:",
+  "minutesLabel": "мин",
+  "lungesName": "Выпады",
+  "lungesDuration": "3 подхода по 15 повторений",
+  "bicycleCrunchesName": "Велосипедные Скручивания",
+  "bicycleCrunchesDuration": "3 подхода по 20 повторений",
+  "description": "Описание",
+  "delete": "Удалить",
+  "pushUpsSteps": "Начните в позиции планки, руки на ширине плеч.\nОпустите тело, пока грудь почти не коснется пола.\nВернитесь в исходное положение, отталкиваясь руками.\nПовторите нужное количество раз.",
+  "squatsSteps": "Встаньте, ноги на ширине плеч.\nОпустите тело, сгибая колени и бедра.\nДержите спину прямо, колени над пальцами ног.\nВернитесь в исходное положение.\nПовторите нужное количество раз.",
+  "bodyPartChest": "Грудь",
+  "bodyPartLegs": "Ноги",
+  "equipmentNone": "Нет",
+  "equipmentMat": "Коврик",
+  "beginner": "Новичок",
+  "intermediate": "Средний",
+  "advanced": "Продвинутый",
+  "@pushUpsName": {
+    "description": "Название упражнения Отжимания"
+  },
+  "@squatsName": {
+    "description": "Название упражнения Приседания"
+  },
+  "@pushUpsSteps": {
+    "description": "Шаги для выполнения отжиманий"
+  },
+  "@squatsSteps": {
+    "description": "Шаги для выполнения приседаний"
+  },
+  "@bodyPartChest": {
+    "description": "Часть тела: Грудь"
+  },
+  "@bodyPartLegs": {
+    "description": "Часть тела: Ноги"
+  },
+  "@equipmentNone": {
+    "description": "Оборудование не требуется"
+  },
+  "@equipmentMat": {
+    "description": "Оборудование: Коврик"
+  },
+  "@beginner": {
+    "description": "Уровень сложности: Новичок"
+  },
+  "@intermediate": {
+    "description": "Уровень сложности: Средний"
+  },
+  "@advanced": {
+    "description": "Уровень сложности: Продвинутый"
+  },
+  "plankSteps": "Примите позицию: Лягте лицом вниз на пол или коврик. Поставьте предплечья на землю, локти под плечами. Поднимите тело, сохраняя прямую линию от головы до пяток. Удерживайте нужное время.",
+  "@plankSteps": {
+    "description": "Шаги для выполнения планки"
+  },
+  "bodyPartShoulders": "Плечи",
+  "@bodyPartShoulders": {
+    "description": "Часть тела: Плечи"
+  },
+  "bodyPartTriceps": "Трицепсы",
+  "@bodyPartTriceps": {
+    "description": "Часть тела: Трицепсы"
+  },
+  "bodyPartGlutes": "Ягодицы",
+  "@bodyPartGlutes": {
+    "description": "Часть тела: Ягодицы"
+  },
+  "bodyPartChestShouldersTriceps": "Грудь, Плечи, Трицепсы",
+  "@bodyPartChestShouldersTriceps": {
+    "description": "Комбинированные части тела: Грудь, Плечи, Трицепсы"
+  },
+  "bodyPartLegsGlutes": "Ноги, Ягодицы",
+  "@bodyPartLegsGlutes": {
+    "description": "Комбинированные части тела: Ноги, Ягодицы"
+  },
+  "bodyPartCore": "Кор",
+  "@bodyPartCore": {
+    "description": "Часть тела: Кор"
+  },
+  "exerciseName": "Упражнение {name}",
+  "@exerciseName": {
+    "description": "Название упражнения",
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "bodyPartValue": "Часть тела {value}",
+  "@bodyPartValue": {
+    "description": "Значение части тела",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "difficultyValue": "Сложность {value}",
+  "@difficultyValue": {
+    "description": "Значение уровня сложности",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "equipmentValue": "Оборудование {value}",
+  "@equipmentValue": {
+    "description": "Значение оборудования",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "startedCount": "{count} Начатых",
+  "@startedCount": {
+    "description": "Количество начатых тренировок или испытаний",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "completedCount": "{count} Завершённых",
+  "@completedCount": {
+    "description": "Количество завершённых тренировок или испытаний",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "percentLabel": "{value}%",
+  "@percentLabel": {
+    "placeholders": {
+      "value": {}
+    }
+  }
+}

@@ -1,0 +1,398 @@
+{
+  "appTitle": "MyFitnessPal",
+  "login": "Кіру",
+  "register": "Тіркелу",
+  "email": "Электрондық пошта",
+  "password": "Құпия сөз",
+  "name": "Аты",
+  "surname": "Тегі",
+  "createAccount": "Тіркелгі жасау",
+  "signInWithGoogle": "Google арқылы кіру",
+  "signInWithFacebook": "Facebook арқылы кіру",
+  "home": "Басты бет",
+  "progress": "Жетістіктер",
+  "exercises": "Жаттығулар",
+  "community": "Қауымдастық",
+  "noFavorites": "No Favorites",
+  "profile": "Профиль",
+  "logout": "Шығу",
+  "search": "Іздеу",
+  "sortBy": "Сұрыптау",
+  "titleAsc": "Атауы (А-Я)",
+  "titleDesc": "Атауы (Я-А)",
+  "progressAsc": "Жетістік (төменнен жоғарыға)",
+  "progressDesc": "Жетістік (жоғарыдан төменге)",
+  "durationAsc": "Ұзақтығы (қысқа - ұзын)",
+  "durationDesc": "Ұзақтығы (ұзын - қысқа)",
+  "notFound": "Табылған жоқ",
+  "challenges": "Сынақтар",
+  "gymsNearMe": "Маған жақын жаттығу залдары",
+  "workoutPlans": "Жаттығу жоспарлары",
+  "started": "Басталды",
+  "completed": "Аяқталды",
+  "completedStats": "Аяқталған",
+  "workouts": "Жаттығу",
+  "minutes": "Минут",
+  "overallProgress": "Жалпы жетістік",
+  "weekNumber": "{weekIndex}-апта",
+  "@weekNumber": {
+    "placeholders": {
+      "weekIndex": {}
+    }
+  },
+  "done": "Аяқталды",
+  "newPost": "Жаңа жазба",
+  "editPost": "Жазбаны өңдеу",
+  "deletePost": "Жазбаны жою",
+  "title": "Тақырып",
+  "enterPostTitle": "Жазба тақырыбын енгізіңіз",
+  "postText": "Мәтін",
+  "text": "Мәтін",
+  "shareThoughts": "Ойларыңызды бөлісіңіз...",
+  "fillBothFields": "Екі өрісті де толтырыңыз",
+  "postCancel": "Бас тарту",
+  "cancel": "Бас тарту",
+  "postSubmit": "Жариялау",
+  "post": "Жазба",
+  "postSave": "Сақтау",
+  "save": "Сақтау",
+  "postDeleteConfirm": "Осы жазбаны жойғыңыз келетініне сенімдісіз бе?",
+  "confirmDeletePost": "Осы жазбаны жойғыңыз келетініне сенімдісіз бе?",
+  "postDeleteYes": "Иә",
+  "postDeleteNo": "Жоқ",
+  "yes": "Иә",
+  "no": "Жоқ",
+  "likes": "{count} ұнады",
+  "@likes": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "likesLabel": "Ұнатулар",
+  "bodyPart": "Дене бөлігі",
+  "equipment": "Жабдықтар",
+  "difficulty": "Қиындық деңгейі",
+  "goalCannotBeEmpty": "Мақсат бос болуы мүмкін емес",
+  "bodyPartLabel": "Дене бөлігі:",
+  "equipmentLabel": "Жабдықтар:",
+  "difficultyLabel": "Қиындық деңгейі:",
+  "steps": "Қадамдар",
+  "stepsLabel": "Қадамдар:",
+  "viewDetails": "ЕГЖЕЙ-ТЕГЖЕЙІН КӨРУ",
+  "enterGoal": "Мақсатыңызды енгізіңіз",
+  "enterYourGoal": "Мақсатыңызды енгізіңіз",
+  "addGoal": "Мақсат қосу",
+  "fitnessGoals": "Фитнес мақсаттары",
+  "editGoal": "Мақсатты өңдеу",
+  "goal": "Мақсат",
+  "deleteGoal": "Мақсатты жою",
+  "goalProgress": "{percent}% Аяқталды",
+  "@goalProgress": {
+    "placeholders": {
+      "percent": {}
+    }
+  },
+  "percentCompleted": "% Аяқталды",
+  "percentComplete": "% Аяқталды",
+  "deleteGoalConfirm": "Осы мақсатты жойғыңыз келе ме?",
+  "confirmDeleteGoal": "Осы мақсатты жойғыңыз келе ме?",
+  "saveGoal": "Мақсатты сақтау",
+  "favorites": "Таңдаулылар",
+  "noFavorites": "Тандаулыларсыз",
+  "resetProgress": "Жетістікті қалпына келтіру",
+  "resetProgressConfirm": "{title} үшін прогресті қайта бастау керек пе?",
+  "@resetProgressConfirm": {
+    "placeholders": {
+      "title": {}
+    }
+  },
+  "confirmResetProgress": "{title} үшін прогресті қайта бастау керек пе?",
+  "@confirmResetProgress": {
+    "placeholders": {
+      "title": {}
+    }
+  },
+  "reset": "Қалпына келтіру",
+  "progressChart": "Жетістік диаграммасы",
+  "yourProgress": "Сіздің жетістігіңіз",
+  "searchPosts": "Жазбаларды іздеу",
+  "textNotFound": "Мәтін табылмады",
+  "gymLocation": "Залдың орналасуы",
+  "settings": "Баптаулар",
+  "language": "Тіл",
+  "selectLanguage": "Тілді таңдаңыз",
+  "english": "Ағылшын",
+  "kazakh": "Қазақ",
+  "russian": "Орыс",
+  "errorUserNotFound": "Бұл электрондық поштамен пайдаланушы табылмады.",
+  "errorWrongPassword": "Құпия сөз қате.",
+  "errorEmailInUse": "Бұл электрондық пошта тіркелген.",
+  "errorInvalidEmail": "Электрондық пошта мекенжайы жарамсыз.",
+  "errorAuthGeneric": "Аутентификация қатесі орын алды.",
+  "errorGeneric": "Күтпеген қате пайда болды: {message}",
+  "@errorGeneric": {
+    "placeholders": {
+      "message": {}
+    }
+  },
+  "errorFacebookCancel": "Facebook арқылы кіру тоқтатылды",
+  "errorFillFields": "Екі өрісті де толтырыңыз",
+  "errorEnterName": "Атыңызды енгізіңіз",
+  "errorEnterSurname": "Тегіңізді енгізіңіз",
+  "errorEnterEmail": "Электрондық поштаны енгізіңіз",
+  "errorPasswordLength": "Құпия сөз кемінде 6 таңбадан тұруы керек",
+  "errorLoadPosts": "Жазбаларды жүктеу сәтсіз аяқталды: {error}",
+  "@errorLoadPosts": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "errorAddPost": "Жазба қосу сәтсіз аяқталды: {error}",
+  "@errorAddPost": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "errorEditPost": "Жазбаны өңдеу сәтсіз аяқталды: {error}",
+  "@errorEditPost": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "errorDeletePost": "Жазбаны жою сәтсіз аяқталды: {error}",
+  "@errorDeletePost": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "errorToggleLike": "Ұнату/ұнатпау сәтсіз аяқталды: {error}",
+  "@errorToggleLike": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "weeklyFitnessChallengeTitle": "Апталық Фитнес Сынағы",
+  "weeklyFitnessChallengeContent": "7 күндік кардио сынағына қосылыңыз және жетістіктеріңізді бөлісіңіз!",
+  "fitnessGuruAuthor": "ФитнесГуру",
+  "plankTipsTitle": "Планк Бойынша Кеңестер",
+  "plankTipsContent": "Планк жасауда қиындықтар бар ма? Формаңызды жақсарту үшін мына кеңестерді қолданып көріңіз.",
+  "coreMasterAuthor": "НегізгіШебер",
+  "morningStretchRoutineTitle": "Таңғы Созылу Рәсімі",
+  "morningStretchRoutineContent": "Күніңізді икемділікті арттыратын 10 минуттық созылумен бастаңыз.",
+  "yogaFanAuthor": "ЙогаЖанкүйері",
+  "proteinShakeRecipesTitle": "Протеин Коктейль Рецепттері",
+  "proteinShakeRecipesContent": "Жаттығудан кейінгі сүйікті коктейль рецепттеріңізді осында бөлісіңіз!",
+  "nutritionNutAuthor": "ТамақтануМаманы",
+  "errorLoadProgress": "Жетістіктерді жүктеу сәтсіз аяқталды: {error}",
+  "@errorLoadProgress": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "errorSaveChallengeProgress": "Сынақ жетістіктерін сақтау сәтсіз аяқталды: {error}",
+  "@errorSaveChallengeProgress": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "errorSaveWorkoutProgress": "Жаттығу жетістіктерін сақтау сәтсіз аяқталды: {error}",
+  "@errorSaveWorkoutProgress": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "errorResetProgress": "Жетістіктерді қалпына келтіру сәтсіз аяқталды: {error}",
+  "@errorResetProgress": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "errorUpdateTotalMinutes": "Жалпы минуттарды жаңарту сәтсіз аяқталды: {error}",
+  "@errorUpdateTotalMinutes": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "errorChallengeNotFound": "{title} сынағы табылмады",
+  "@errorChallengeNotFound": {
+    "placeholders": {
+      "title": {}
+    }
+  },
+  "errorWorkoutNotFound": "{title} жаттығуы табылмады",
+  "@errorWorkoutNotFound": {
+    "placeholders": {
+      "title": {}
+    }
+  },
+  "fullBodyChallengeTitle": "Толық Дене Сынағы",
+  "fullBodyChallengeSubtitle": "Толық Дене Фокусы",
+  "plankChallengeTitle": "Планк Сынағы",
+  "plankChallengeSubtitle": "Негізгі Күшті Қалыптастыру",
+  "fitIn15Title": "15 Минутта Фитнес",
+  "fitIn15Subtitle": "Жылдам Күнделікті Жаттығулар",
+  "cardioBlastTitle": "Кардио Жарылысы",
+  "cardioBlastSubtitle": "Калорияларды Жылдам Жағу",
+  "goldsGymVeniceTitle": "Венециядағы Gold's Gym",
+  "goldsGymVeniceSubtitle": "Бодибилдингтің Меккесі",
+  "goldsGymVeniceAddress": "Венеция, Хэмптон Др, 360",
+  "planetFitnessTitle": "Planet Fitness",
+  "planetFitnessSubtitle": "Қолжетімді және жергілікті",
+  "planetFitnessAddress": "Фитнес Жолы, 456",
+  "chestWorkoutTitle": "Кеуде Жаттығуы",
+  "chestWorkoutDuration": "30 минут",
+  "legWorkoutTitle": "Аяқ Жаттығуы",
+  "legWorkoutDuration": "45 минут",
+  "plankWorkoutTitle": "Планк",
+  "plankWorkoutDuration": "15 минут",
+  "backWorkoutTitle": "Арқа Жаттығуы",
+  "backWorkoutDuration": "40 минут",
+  "jumpingJacksName": "Секіру Джектері",
+  "jumpingJacksDuration": "3 жиынты_Desktop development with C++_к 30 секунд",
+  "highKneesName": "Жоғары Тізелер",
+  "highKneesDuration": "3 жиынтық 30 секунд",
+  "burpeesName": "Бөрпелер",
+  "burpeesDuration": "3 жиынтық 15 қайталау",
+  "pushUpsName": "Отжимания",
+  "pushUpsDuration": "3 жиынтық 15 қайталау",
+  "squatsName": "Приседания",
+  "squatsDuration": "3 жиынтық 20 қайталау",
+  "plankName": "Планк",
+  "plankDuration": "3 жиынтық 30 секунд",
+  "standardPlankName": "Стандартты Планк",
+  "standardPlankDuration": "3 жиынтық 30 секунд",
+  "sidePlankName": "Бүйірлік Планк",
+  "sidePlankDuration": "3 жиынтық 20 секунд",
+  "unknownError": "Белгісіз қате",
+  "plankWithLegLiftName": "Аяқты Көтерумен Планк",
+  "plankWithLegLiftDuration": "3 жиынтық 20 секунд",
+  "mountainClimbersName": "Тау Альпинистері",
+  "mountainClimbersDuration": "3 жиынтық 30 секунд",
+  "totalDurationLabel": "Жалпы Ұзақтығы:",
+  "minutesLabel": "мин",
+  "lungesName": "Қадамдар",
+  "lungesDuration": "3 жиынтық 15 қайталау",
+  "bicycleCrunchesName": "Велосипедті Қысу",
+  "bicycleCrunchesDuration": "3 жиынтық 20 қайталау",
+  "description": "Сипаттама",
+  "delete": "Жою",
+  "pushUpsSteps": "Қолдарды иық енінде орналастырып, планка позициясынан бастаңыз.\nДенеңізді кеуде еденге жақын болғанша түсіріңіз.\nБастапқы позицияға қайта көтеріңіз.\nҚалаған қайталау санын орындаңыз.",
+  "squatsSteps": "Аяқтарды иық енінде орналастырып, тік тұрыңыз.\nТізе мен жамбасты бүгіп, денеңізді төмендетіңіз.\nАрқаңызды тік ұстаңыз және тізелеріңіз саусақтарыңыздың үстінде болсын.\nБастапқы позицияға оралыңыз.\nҚалаған қайталау санын орындаңыз.",
+  "bodyPartChest": "Кеуде",
+  "bodyPartLegs": "Аяқтар",
+  "equipmentNone": "Ешқандай",
+  "equipmentMat": "Төсеніш",
+  "beginner": "Бастаушы",
+  "intermediate": "Орташа",
+  "advanced": "Жетілдірілген",
+  "@pushUpsName": {
+    "description": "Отжимания жаттығуының атауы"
+  },
+  "@squatsName": {
+    "description": "Приседания жаттығуының атауы"
+  },
+  "@pushUpsSteps": {
+    "description": "Отжимания жаттығуын орындау қадамдары"
+  },
+  "@squatsSteps": {
+    "description": "Приседания жаттығуын орындау қадамдары"
+  },
+  "@bodyPartChest": {
+    "description": "Дене бөлігі: Кеуде"
+  },
+  "@bodyPartLegs": {
+    "description": "Дене бөлігі: Аяқтар"
+  },
+  "@equipmentNone": {
+    "description": "Құрал-жабдық қажет емес"
+  },
+  "@equipmentMat": {
+    "description": "Құрал-жабдық: Төсеніш"
+  },
+  "@beginner": {
+    "description": "Қиындық деңгейі: Бастаушы"
+  },
+  "@intermediate": {
+    "description": "Қиындық деңгейі: Орташа"
+  },
+  "@advanced": {
+    "description": "Қиындық деңгейі: Жетілдірілген"
+  },
+  "plankSteps": "Позицияға кіріңіз: Еденде немесе кілемде бетіңізді төмен қаратып жатыңыз. Білектеріңізді жерге қойыңыз, шынтақтар иық астында. Денеңізді көтеріңіз, басынан өкшеге дейін түзу сызық сақтаңыз. Қажетті уақыт ұстаңыз.",
+  "@plankSteps": {
+    "description": "Планк жаттығуын орындау қадамдары"
+  },
+  "bodyPartShoulders": "Иықтар",
+  "@bodyPartShoulders": {
+    "description": "Дене бөлігі: Иықтар"
+  },
+  "bodyPartTriceps": "Трицепс",
+  "@bodyPartTriceps": {
+    "description": "Дене бөлігі: Трицепс"
+  },
+  "bodyPartGlutes": "Бөкселер",
+  "@bodyPartGlutes": {
+    "description": "Дене бөлігі: Бөкселер"
+  },
+  "bodyPartChestShouldersTriceps": "Кеуде, Иықтар, Трицепс",
+  "@bodyPartChestShouldersTriceps": {
+    "description": "Біріктірілген дене бөліктері: Кеуде, Иықтар, Трицепс"
+  },
+  "bodyPartLegsGlutes": "Аяқтар, Бөкселер",
+  "@bodyPartLegsGlutes": {
+    "description": "Біріктірілген дене бөліктері: Аяқтар, Бөкселер"
+  },
+  "bodyPartCore": "Іш бұлшықеттері",
+  "@bodyPartCore": {
+    "description": "Дене бөлігі: Іш бұлшықеттері"
+},
+  "exerciseName": "Жаттығу {name}",
+  "@exerciseName": {
+    "description": "Жаттығу атауы",
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "bodyPartValue": "Дене бөлігі {value}",
+  "@bodyPartValue": {
+    "description": "Дене бөлігінің мәні",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "difficultyValue": "Қиындық деңгейі {value}",
+  "@difficultyValue": {
+    "description": "Қиындық деңгейінің мәні",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "equipmentValue": "Жабдық {value}",
+  "@equipmentValue": {
+    "description": "Жабдықтың мәні",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "startedCount": "{count} Бастау алған",
+  "@startedCount": {
+    "description": "Басталған жаттығулар немесе сынақтар саны",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "completedCount": "{count} Аяқталған",
+  "@completedCount": {
+    "description": "Аяқталған жаттығулар немесе сынақтар саны",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "percentLabel": "{value}%",
+  "@percentLabel": {
+    "placeholders": {
+      "value": {}
+    }
+  }
+}
+
